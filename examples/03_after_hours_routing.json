@@ -1,0 +1,97 @@
+{
+  "id": "after-hours-routing",
+  "intake": {
+    "feature": "After-Hours Routing",
+    "what": "Lets an owner set rules for calls that come in after 6pm: which calls page the on-call tech, which get a next-morning slot automatically, and which get a text with the emergency rate. Replaces the answering service sticky note.",
+    "asked_by": "Support, where 'after hours' is the third most common ticket topic, and two owners who posted about it in the customer forum",
+    "launch_window": "Mid February",
+    "pricing_impact": "tier gate"
+  },
+  "brief": {
+    "launch_tier": "standard",
+    "tier_reason": "It replaces a workaround customers already run and the tier gate only affects shops below the Pro plan, so it earns release notes, one email to the affected segment and CSM enablement, with a short upgrade note rather than a release moment.",
+    "positioning": "After-Hours Routing decides which night calls wake the on-call tech and which wait for morning, using rules the owner wrote once instead of a note taped to the answering service's screen.",
+    "segments": [
+      {
+        "name": "Owners who are the on-call tech",
+        "who": "Owners of shops under 20 technicians who take the night phone themselves and get paged for thermostat questions.",
+        "message": "Thermostat questions get a morning slot. Compressor failures get you. You write the rule once.",
+        "proof_needed": "A sample rule set with five real-sounding call types and what happens to each, shown as a table."
+      },
+      {
+        "name": "Office managers on the Pro plan",
+        "who": "Office managers at 20 to 80 technician shops who manage the answering service relationship and the on-call rotation.",
+        "message": "The answering service gets one page of rules instead of a text thread, and the rotation updates itself.",
+        "proof_needed": "A printable rules page the office manager can hand to the answering service, plus the rotation screen."
+      },
+      {
+        "name": "Starter plan shops",
+        "who": "Shops on the Starter plan who asked for this and will see the tier gate first.",
+        "message": "This is on Pro. Here's what else on Pro you'd use, and the price difference for your size.",
+        "proof_needed": "A short upgrade note with the plan difference for a 12 technician shop and the two other Pro features those shops use most."
+      }
+    ],
+    "channels": [
+      {"channel": "Help center", "play": "A rules cookbook: ten common after-hours rules written out, copyable.", "timing": "One week before"},
+      {"channel": "Customer email", "play": "Pro accounts get the cookbook and the rotation screen; Starter accounts get the upgrade note, written by a human.", "timing": "Launch day"},
+      {"channel": "In-app announcement", "play": "Settings page card for owners and office managers only.", "timing": "Launch day"},
+      {"channel": "CSM talk track", "play": "Pull the after-hours tickets for each account and open with their own examples.", "timing": "Launch week"},
+      {"channel": "Partner newsletter", "play": "A note to the two answering service partners with the printable rules page.", "timing": "One week after"}
+    ],
+    "risks": [
+      {"risk": "Starter shops who asked for it read the tier gate as a bait and switch.", "signal": "Forum replies or support tickets using the word 'paywall' in the first week."},
+      {"risk": "A rule routes a real emergency to the morning queue and a customer loses a walk-in cooler overnight.", "signal": "Any support ticket about a missed emergency in the first 60 days. One is too many."},
+      {"risk": "Answering services ignore the printed rules and keep paging everything.", "signal": "Page volume unchanged on accounts that turned it on."}
+    ],
+    "sales_proof": [
+      "The default rule set and the plain answer on how an emergency can't be misrouted",
+      "The upgrade math for a 12 technician shop",
+      "The printable rules page",
+      "One office manager who'll say the text thread with the answering service is gone"
+    ]
+  },
+  "bets": {
+    "bets": [
+      {
+        "title": "Open the CSM call with the account's own after-hours tickets",
+        "hypothesis": "If CSMs open with three of the account's own after-hours support tickets, then more accounts will set up rules in the first two weeks, because the problem is already theirs and not a feature tour.",
+        "change": "The opening of the CSM conversation.",
+        "win_target": "50% of Pro accounts touched by a CSM have at least three rules saved within 14 days, assumption of 25% from the email alone.",
+        "window_weeks": 4,
+        "impact": 4,
+        "effort": 2,
+        "owner_role": "CSM lead"
+      },
+      {
+        "title": "Ship the cookbook before the feature",
+        "hypothesis": "If the rules cookbook is live a week before launch, then accounts will finish setup faster on launch day, because they'll arrive with rules already picked.",
+        "change": "Cookbook publish date.",
+        "win_target": "Median time from first visit to the settings page to three saved rules under 10 minutes, assumption of 25 minutes without the cookbook.",
+        "window_weeks": 3,
+        "impact": 3,
+        "effort": 1,
+        "owner_role": "Content"
+      },
+      {
+        "title": "Write the Starter upgrade note as a person, not a plan page",
+        "hypothesis": "If the upgrade note to Starter shops comes from the product lead with the math for their size and no plan comparison table, then fewer will complain publicly and more will reply, because a table reads as a sales page and a note reads as an answer.",
+        "change": "Format and sender of the upgrade note.",
+        "win_target": "Reply rate above 8% and no forum thread using 'paywall' in the first two weeks.",
+        "window_weeks": 2,
+        "impact": 3,
+        "effort": 1,
+        "owner_role": "PMM"
+      },
+      {
+        "title": "Give answering service partners the printed page and ask them to confirm receipt",
+        "hypothesis": "If both answering service partners get the printable rules page and confirm they'll use it, then page volume on routed accounts will drop, because the service is the one holding the phone at night.",
+        "change": "A confirmation step with the partners.",
+        "win_target": "After-hours pages down 30% on accounts with rules saved, measured over 30 days against the prior 30.",
+        "window_weeks": 6,
+        "impact": 3,
+        "effort": 2,
+        "owner_role": "Partner manager"
+      }
+    ]
+  }
+}

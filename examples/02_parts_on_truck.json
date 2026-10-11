@@ -1,0 +1,146 @@
+{
+  "id": "parts-on-truck",
+  "intake": {
+    "feature": "Parts on Truck",
+    "what": "Each technician's truck gets a live parts list synced from the parts counter. Dispatch sees which trucks carry the part a job needs before assigning it, and techs get a restock list at end of day. Sold as an add-on per truck.",
+    "asked_by": "Our head of sales, after losing three deals to a competitor that bundles truck inventory, and two 150-tech accounts in renewal talks",
+    "launch_window": "January, after the holiday freeze",
+    "pricing_impact": "add-on"
+  },
+  "brief": {
+    "launch_tier": "major",
+    "tier_reason": "It adds a paid line item, gives sales a new reason to call every account, and answers a competitor bundle, so it earns a release moment, a customer story and a sales kickoff.",
+    "positioning": "Parts on Truck tells dispatch which truck already has the part before the job is assigned, so a repair that used to take two trips takes one.",
+    "segments": [
+      {
+        "name": "Owners in renewal",
+        "who": "Owners of 100 to 200 technician shops with a renewal in the next two quarters who've been shown the competitor's bundle.",
+        "message": "One fewer trip on one job a week per truck pays for the add-on. Here's the math on your fleet size.",
+        "proof_needed": "A calculator with invented but defensible inputs: second trip cost, add-on price per truck, break-even trips per month."
+      },
+      {
+        "name": "Dispatchers",
+        "who": "Dispatchers who currently call three techs to ask who has a contactor on the truck.",
+        "message": "The part is a filter on the board. Pick the truck that has it.",
+        "proof_needed": "A demo path that starts from a real-looking job and ends with the truck filter, under 20 seconds."
+      },
+      {
+        "name": "Parts counter staff",
+        "who": "The one or two people who run the parts room and will be blamed if the truck list is wrong.",
+        "message": "Restock lists come to you at 5pm, built from what techs used, not what they remembered.",
+        "proof_needed": "The end-of-day restock list as a printed sample, and a plain answer on what happens when a tech forgets to scan."
+      }
+    ],
+    "channels": [
+      {
+        "channel": "Sales battlecard",
+        "play": "Side by side with the competitor bundle: what each tracks, how it's priced, where ours is thinner and we say so.",
+        "timing": "Three weeks before"
+      },
+      {
+        "channel": "CSM talk track",
+        "play": "Renewal accounts first: the calculator filled in with their truck count.",
+        "timing": "Two weeks before"
+      },
+      {
+        "channel": "Webinar",
+        "play": "A 25 minute session run by a service manager, not marketing, on how they set up the parts room for it.",
+        "timing": "Launch week"
+      },
+      {
+        "channel": "Customer email",
+        "play": "Owners get the calculator; ops managers get the demo path.",
+        "timing": "Launch day"
+      },
+      {
+        "channel": "In-app announcement",
+        "play": "Card on the dispatch board that opens the truck filter on a sample job.",
+        "timing": "Launch day"
+      },
+      {
+        "channel": "Direct mail to dispatch offices",
+        "play": "A printed restock list sample with a note from the product lead, to the 50 largest accounts.",
+        "timing": "One week after"
+      }
+    ],
+    "risks": [
+      {
+        "risk": "The add-on price lands in renewal conversations as a price increase, not a new line.",
+        "signal": "Renewal accounts asking for it to be bundled free in the first month."
+      },
+      {
+        "risk": "Truck lists go stale when techs don't scan parts out, and dispatch stops trusting the filter.",
+        "signal": "Filter use dropping after week two on accounts that turned it on."
+      },
+      {
+        "risk": "Parts counter staff see it as surveillance of their room.",
+        "signal": "Setup stalling at the parts import step on more than a third of accounts."
+      },
+      {
+        "risk": "The competitor cuts the bundle price the week we launch.",
+        "signal": "Lost deal notes mentioning a new competitor price."
+      }
+    ],
+    "sales_proof": [
+      "The break-even calculator with its assumptions written on it",
+      "A customer from the beta willing to give the second-trip number before and after",
+      "The honest competitor comparison, including where theirs is better",
+      "A one page answer on what happens when techs don't scan",
+      "The add-on price and the discount rule for renewals, in writing"
+    ]
+  },
+  "bets": {
+    "bets": [
+      {
+        "title": "Send renewal accounts the calculator filled in, not blank",
+        "hypothesis": "If CSMs send the break-even calculator already filled in with the account's truck count, then more renewal accounts will take a demo, because a blank calculator is homework and a filled one is a number to argue with.",
+        "change": "Whether the calculator arrives filled in.",
+        "win_target": "40% of the 20 renewal accounts book a demo within two weeks, assumption of 15% for a blank calculator.",
+        "window_weeks": 3,
+        "impact": 5,
+        "effort": 2,
+        "owner_role": "CSM lead"
+      },
+      {
+        "title": "Let the service manager run the webinar alone",
+        "hypothesis": "If the launch webinar is run by a customer's service manager with no Halden presenter, then attendees will stay past the 15 minute mark at a higher rate, because contractors leave when a vendor starts talking.",
+        "change": "Who presents.",
+        "win_target": "60% of attendees still on at minute 20, against an assumed 35% for vendor-led sessions.",
+        "window_weeks": 4,
+        "impact": 3,
+        "effort": 3,
+        "owner_role": "PMM"
+      },
+      {
+        "title": "Say where the competitor is better in the battlecard",
+        "hypothesis": "If the battlecard names two things the competitor bundle does better, then reps will report fewer stalled deals over trust, because buyers who've seen both products stop believing a one-sided card.",
+        "change": "Two honest lines in the comparison.",
+        "win_target": "Reps rate the card 4 or higher out of 5 on usefulness in the two week survey; fewer than 2 of 15 deals stalled on a comparison question.",
+        "window_weeks": 2,
+        "impact": 3,
+        "effort": 1,
+        "owner_role": "Sales enablement"
+      },
+      {
+        "title": "Price the first truck free for 60 days on renewal accounts",
+        "hypothesis": "If renewal accounts get one truck free for 60 days, then they'll turn the feature on during the renewal window rather than after, because the parts import is the hard part and a free truck pays for the setup time.",
+        "change": "A 60 day free truck on renewal accounts only.",
+        "win_target": "Half of renewal accounts that accept the free truck add at least five paid trucks by day 90.",
+        "window_weeks": 6,
+        "impact": 4,
+        "effort": 3,
+        "owner_role": "PMM"
+      },
+      {
+        "title": "Mail the restock list sample to dispatch offices",
+        "hypothesis": "If the 50 largest accounts receive a printed restock list sample, then more parts counter staff will complete the parts import, because a piece of paper on the parts room wall explains the feature better than an email they don't get.",
+        "change": "A printed sample instead of a PDF attachment.",
+        "win_target": "Parts import completion at 60% of mailed accounts in 30 days, against 35% for the rest.",
+        "window_weeks": 5,
+        "impact": 2,
+        "effort": 2,
+        "owner_role": "Lifecycle marketer"
+      }
+    ]
+  }
+}

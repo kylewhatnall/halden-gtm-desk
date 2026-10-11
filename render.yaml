@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: halden-gtm-desk
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: HALDEN_DAILY_CAP
+        value: "40"
+      - key: HALDEN_IP_HOURLY_CAP
+        value: "5"
+      - key: PYTHON_VERSION
+        value: "3.11.9"

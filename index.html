@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halden GTM Desk</title>
+<meta name="description" content="Feature intake to GTM brief to scored bets to campaign queue. A public demo on invented data.">
+<style>
+  :root {
+    --bg: #f4f4f1; --panel: #ffffff; --ink: #1b1b1b; --muted: #6b6b66; --line: #d9d9d3;
+    --accent: #b5412b; --accent-ink: #ffffff; --soft: #efe9e2; --ok: #2f6b3a; --warn: #8a6d1d;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#171716; --panel:#1f1f1d; --ink:#ebebe6; --muted:#9a9a93; --line:#34342f; --soft:#2a2724; --accent:#e0664c; }
+  }
+  :root[data-theme="dark"] { --bg:#171716; --panel:#1f1f1d; --ink:#ebebe6; --muted:#9a9a93; --line:#34342f; --soft:#2a2724; --accent:#e0664c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 var(--sans); }
+  header { display:flex; align-items:baseline; gap:16px; padding:10px 16px; border-bottom:1px solid var(--line); background:var(--panel); position:sticky; top:0; z-index:2; }
+  header h1 { font-size:15px; margin:0; font-weight:600; letter-spacing:.2px; }
+  header .sub { color:var(--muted); font-size:12px; }
+  header .right { margin-left:auto; font-size:12px; color:var(--muted); display:flex; gap:14px; align-items:center; }
+  header a { color:inherit; }
+  main { display:grid; grid-template-columns: 300px 1fr; gap:0; min-height:calc(100vh - 42px); }
+  @media (max-width: 860px) { main { grid-template-columns:1fr; } aside { border-right:0; border-bottom:1px solid var(--line); position:static; max-height:none; } }
+  aside { border-right:1px solid var(--line); padding:14px 16px; background:var(--panel); position:sticky; top:42px; align-self:start; max-height:calc(100vh - 42px); overflow:auto; }
+  section.work { padding:14px 16px 60px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:18px 0 8px; font-weight:600; }
+  h2:first-child { margin-top:0; }
+  label { display:block; font-size:12px; color:var(--muted); margin:10px 0 4px; }
+  input, textarea, select { width:100%; font:inherit; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:4px; padding:7px 8px; }
+  textarea { min-height:96px; resize:vertical; }
+  button { font:inherit; border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:4px; padding:7px 12px; cursor:pointer; }
+  button.primary { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+  button:disabled { opacity:.5; cursor:default; }
+  .examples { display:flex; flex-wrap:wrap; gap:6px; }
+  .examples button { font-size:12px; padding:5px 8px; }
+  .steps { display:flex; gap:0; border:1px solid var(--line); border-radius:4px; overflow:hidden; margin-bottom:14px; }
+  .steps div { flex:1; padding:8px 10px; font-size:12px; color:var(--muted); border-right:1px solid var(--line); background:var(--panel); }
+  .steps div:last-child { border-right:0; }
+  .steps div.on { color:var(--ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--accent); }
+  .steps div.done { color:var(--ok); }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:14px 16px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:14px; }
+  .doc p { margin:6px 0; }
+  .doc [contenteditable] { outline:none; border-bottom:1px dashed transparent; }
+  .doc [contenteditable]:hover, .doc [contenteditable]:focus { border-bottom-color:var(--accent); background:var(--soft); }
+  .tier { display:inline-block; font-size:11px; padding:2px 7px; border-radius:3px; background:var(--soft); color:var(--ink); text-transform:uppercase; letter-spacing:.06em; margin-left:6px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; vertical-align:top; padding:6px 8px; border-top:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.06em; border-top:0; }
+  .raw { font:12px/1.4 var(--mono); white-space:pre-wrap; color:var(--muted); max-height:220px; overflow:auto; background:var(--bg); padding:10px; border-radius:4px; border:1px solid var(--line); }
+  .score { font:12px var(--mono); }
+  .bet { border:1px solid var(--line); border-radius:4px; padding:10px 12px; margin-bottom:8px; display:grid; grid-template-columns: 1fr auto; gap:10px; background:var(--panel); }
+  .bet h4 { margin:0 0 4px; font-size:13px; }
+  .bet .meta { font-size:12px; color:var(--muted); }
+  .bet .k { color:var(--muted); }
+  .queue td select { width:auto; padding:3px 6px; font-size:12px; }
+  .status-won { color:var(--ok); } .status-lost { color:var(--accent); } .status-permanent { color:var(--warn); }
+  .muted { color:var(--muted); }
+  .err { color:var(--accent); font-size:13px; }
+  details summary { cursor:pointer; color:var(--muted); font-size:12px; }
+  pre.skill { font:12px/1.45 var(--mono); white-space:pre-wrap; background:var(--bg); border:1px solid var(--line); padding:10px; border-radius:4px; max-height:360px; overflow:auto; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .spacer { flex:1; }
+  footer { padding:14px 16px; color:var(--muted); font-size:12px; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Halden GTM Desk</h1>
+  <span class="sub">intake → brief → bets → queue, on invented data</span>
+  <div class="right">
+    <span id="usage"></span>
+    <a href="https://github.com/kylewhatnall/halden-gtm-desk">source</a>
+  </div>
+</header>
+<main>
+  <aside>
+    <h2>1. Intake</h2>
+    <div class="examples" id="examples"></div>
+    <form id="intake">
+      <label>Feature name</label><input name="feature" required maxlength="120">
+      <label>What it does</label><textarea name="what" required maxlength="1200"></textarea>
+      <label>Who asked for it</label><input name="asked_by" required maxlength="200">
+      <label>Launch window</label><input name="launch_window" required maxlength="60" placeholder="Early November">
+      <label>Pricing impact</label>
+      <select name="pricing_impact"><option value="none">none</option><option value="add-on">add-on</option><option value="tier gate">tier gate</option></select>
+      <input type="hidden" name="example_id">
+      <div class="row" style="margin-top:12px">
+        <button class="primary" type="submit" id="runBrief">Write the brief</button>
+        <button type="button" id="reset">Clear</button>
+      </div>
+      <p class="err" id="err"></p>
+    </form>
+    <h2>Queue</h2>
+    <p class="muted" id="queueNote">Approved bets land here. Kept in this browser only.</p>
+  </aside>
+
+  <section class="work">
+    <div class="steps">
+      <div id="s1" class="on">Intake</div><div id="s2">Brief</div><div id="s3">Bets</div><div id="s4">Queue</div>
+    </div>
+
+    <div class="card" id="briefCard" hidden>
+      <div class="row"><h3 style="margin:0">GTM brief <span class="tier" id="tier"></span></h3><span class="spacer"></span>
+        <button id="runBets" class="primary" disabled>Propose bets from this brief</button></div>
+      <p class="muted" id="briefStatus"></p>
+      <div class="raw" id="briefRaw" hidden></div>
+      <div class="doc" id="briefDoc"></div>
+    </div>
+
+    <div class="card" id="betsCard" hidden>
+      <div class="row"><h3 style="margin:0">Marketing bets</h3><span class="spacer"></span><span class="muted" id="betsStatus"></span></div>
+      <div class="raw" id="betsRaw" hidden></div>
+      <div id="betsList"></div>
+    </div>
+
+    <div class="card" id="queueCard">
+      <h3>Campaign queue</h3>
+      <table class="queue"><thead><tr><th>Bet</th><th>Feature</th><th>Owner</th><th>Due week</th><th>Target</th><th>Status</th><th></th></tr></thead><tbody id="queueBody"></tbody></table>
+      <p class="muted" id="queueEmpty">Nothing queued yet.</p>
+    </div>
+
+    <div class="card">
+      <details id="hood"><summary>Prompt and skills: the exact system prompt and skill files this run used</summary>
+        <div id="hoodBody" class="muted">Loading…</div>
+      </details>
+    </div>
+  </section>
+</main>
+<footer>Halden is a fictional company. Every customer, number and quote on this page is invented. Built by Kyle Whatnall as a from-scratch demo of a pattern; nothing here comes from a real employer's code or data.</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const state = { intake: null, brief: null, bets: null };
+const OWNERS = { "PMM": "Dana Okafor", "Lifecycle marketer": "Priya Venkat", "CSM lead": "Marcus Lind", "Sales enablement": "Jo Castellanos", "Content": "Theo Brandt", "Partner manager": "Ines Moreau" };
+
+function esc(s){ return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function setStep(n){ for (let i=1;i<=4;i++){ const el=$("s"+i); el.className = i<n ? "done" : (i===n ? "on" : ""); } }
+function fmtWeek(d){ const y=d.getFullYear(); const jan=new Date(y,0,1); const w=Math.ceil((((d-jan)/86400000)+jan.getDay()+1)/7); return `${y}-W${String(w).padStart(2,"0")}`; }
+
+async function loadExamples(){
+  const ex = await (await fetch("/api/examples")).json();
+  $("examples").innerHTML = ex.map(e => `<button type="button" data-id="${esc(e.id)}">${esc(e.intake.feature)}</button>`).join("");
+  $("examples").querySelectorAll("button").forEach(b => b.onclick = () => {
+    const e = ex.find(x => x.id === b.dataset.id); const f = $("intake");
+    for (const k of ["feature","what","asked_by","launch_window","pricing_impact"]) f.elements[k].value = e.intake[k];
+    f.elements.example_id.value = e.id;
+  });
+}
+async function loadUsage(){
+  try { const u = await (await fetch("/api/usage")).json();
+    $("usage").textContent = u.offline ? "offline mode: replaying recorded runs" : `${u.runs_today}/${u.daily_cap} runs today · ${u.model}`;
+  } catch {}
+}
+async function loadHood(){
+  try { const h = await (await fetch("/api/under-the-hood")).json();
+    $("hoodBody").innerHTML = `<p>Model: <code>${esc(h.model)}</code>${h.offline ? " (offline mode, so the recorded example is replayed instead of a live call)" : ""}. The system prompt is the two markdown files below joined together; the user message is the intake form, or the approved brief for the bets step. To change the output you edit these files and commit them.</p>`
+      + Object.entries(h.skills).map(([k,v]) => `<p><strong>skills/${esc(k)}.md</strong></p><pre class="skill">${esc(v)}</pre>`).join("");
+  } catch { $("hoodBody").textContent = "Couldn't load."; }
+}
+
+async function stream(url, body, rawEl, onDone){
+  rawEl.hidden = false; rawEl.textContent = "";
+  const res = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body) });
+  if (!res.ok) { let msg = res.statusText; try { msg = (await res.json()).detail || msg; } catch {} throw new Error(msg); }
+  const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "", text = "";
+  while (true) {
+    const { value, done } = await reader.read(); if (done) break;
+    buf += dec.decode(value, { stream:true });
+    let i; while ((i = buf.indexOf("\n\n")) >= 0) {
+      const frame = buf.slice(0, i); buf = buf.slice(i+2);
+      if (frame.startsWith("event: done")) continue;
+      const line = frame.split("\n").find(l => l.startsWith("data: ")); if (!line) continue;
+      text += JSON.parse(line.slice(6)); rawEl.textContent = text; rawEl.scrollTop = rawEl.scrollHeight;
+    }
+  }
+  const start = text.indexOf("{"), end = text.lastIndexOf("}");
+  if (start < 0 || end < 0) throw new Error("The model didn't return JSON. Raw output is above.");
+  const parsed = JSON.parse(text.slice(start, end+1));
+  rawEl.hidden = true; onDone(parsed);
+}
+
+function ed(path, v){ return `<span contenteditable data-path="${esc(path)}">${esc(v)}</span>`; }
+function renderBrief(b){
+  $("tier").textContent = b.launch_tier || "";
+  $("briefDoc").innerHTML = `
+    <p><strong>Positioning.</strong> ${ed("positioning", b.positioning)}</p>
+    <p class="muted"><em>Tier reason.</em> ${ed("tier_reason", b.tier_reason)}</p>
+    <h2>Segments</h2>
+    <table><thead><tr><th>Segment</th><th>Who</th><th>Message</th><th>Proof needed</th></tr></thead><tbody>
+      ${(b.segments||[]).map((s,i)=>`<tr><td><strong>${ed(`segments.${i}.name`, s.name)}</strong></td><td>${ed(`segments.${i}.who`, s.who)}</td><td>${ed(`segments.${i}.message`, s.message)}</td><td>${ed(`segments.${i}.proof_needed`, s.proof_needed)}</td></tr>`).join("")}
+    </tbody></table>
+    <h2>Channel plan</h2>
+    <table><thead><tr><th>Channel</th><th>Play</th><th>Timing</th></tr></thead><tbody>
+      ${(b.channels||[]).map((c,i)=>`<tr><td>${ed(`channels.${i}.channel`, c.channel)}</td><td>${ed(`channels.${i}.play`, c.play)}</td><td>${ed(`channels.${i}.timing`, c.timing)}</td></tr>`).join("")}
+    </tbody></table>
+    <h2>Risks</h2>
+    <table><thead><tr><th>Risk</th><th>Signal it's happening</th></tr></thead><tbody>
+      ${(b.risks||[]).map((r,i)=>`<tr><td>${ed(`risks.${i}.risk`, r.risk)}</td><td>${ed(`risks.${i}.signal`, r.signal)}</td></tr>`).join("")}
+    </tbody></table>
+    <h2>What sales will ask for</h2>
+    <ol>${(b.sales_proof||[]).map((p,i)=>`<li>${ed(`sales_proof.${i}`, p)}</li>`).join("")}</ol>`;
+  $("briefDoc").querySelectorAll("[contenteditable]").forEach(el => el.addEventListener("input", () => {
+    const parts = el.dataset.path.split("."); let o = state.brief;
+    for (let i=0;i<parts.length-1;i++) o = o[parts[i]];
+    o[parts[parts.length-1]] = el.textContent;
+  }));
+}
+
+function renderBets(b){
+  const bets = (b.bets||[]).slice().sort((x,y)=> (y.impact-x.impact) || (x.effort-y.effort));
+  state.bets = bets;
+  $("betsList").innerHTML = bets.map((x,i)=>`
+    <div class="bet">
+      <div>
+        <h4>${esc(x.title)}</h4>
+        <p style="margin:4px 0">${esc(x.hypothesis)}</p>
+        <p class="meta"><span class="k">Change:</span> ${esc(x.change)} · <span class="k">Win target:</span> ${esc(x.win_target)} · <span class="k">Window:</span> ${esc(x.window_weeks)} wk · <span class="k">Owner:</span> ${esc(x.owner_role)}</p>
+      </div>
+      <div style="text-align:right">
+        <div class="score">impact ${esc(x.impact)}/5<br>effort ${esc(x.effort)}/5</div>
+        <button data-i="${i}" style="margin-top:8px">Approve → queue</button>
+      </div>
+    </div>`).join("");
+  $("betsList").querySelectorAll("button").forEach(btn => btn.onclick = () => { approve(bets[+btn.dataset.i]); btn.disabled = true; btn.textContent = "Queued"; });
+}
+
+function loadQueue(){ try { return JSON.parse(localStorage.getItem("halden.queue") || "[]"); } catch { return []; } }
+function saveQueue(q){ try { localStorage.setItem("halden.queue", JSON.stringify(q)); } catch {} }
+function approve(bet){
+  const q = loadQueue(); const due = new Date(); due.setDate(due.getDate() + 7*(bet.window_weeks||2));
+  q.push({ id: Date.now()+"", title: bet.title, feature: state.intake.feature, owner: OWNERS[bet.owner_role] || bet.owner_role, due: fmtWeek(due), target: bet.win_target, status: "queued" });
+  saveQueue(q); renderQueue(); setStep(4);
+}
+function renderQueue(){
+  const q = loadQueue(); $("queueEmpty").hidden = q.length > 0;
+  $("queueBody").innerHTML = q.map(r => `<tr>
+    <td>${esc(r.title)}</td><td>${esc(r.feature)}</td><td>${esc(r.owner)}</td><td class="score">${esc(r.due)}</td><td class="muted">${esc(r.target)}</td>
+    <td><select data-id="${esc(r.id)}" class="status-${esc(r.status)}">${["queued","running","won","lost","permanent"].map(s=>`<option ${s===r.status?"selected":""}>${s}</option>`).join("")}</select></td>
+    <td><button data-del="${esc(r.id)}" title="Remove">×</button></td></tr>`).join("");
+  $("queueBody").querySelectorAll("select").forEach(s => s.onchange = () => { const q=loadQueue(); const r=q.find(x=>x.id===s.dataset.id); r.status=s.value; saveQueue(q); renderQueue(); });
+  $("queueBody").querySelectorAll("button[data-del]").forEach(b => b.onclick = () => { saveQueue(loadQueue().filter(x=>x.id!==b.dataset.del)); renderQueue(); });
+  $("queueNote").textContent = q.length ? `${q.length} queued · ${q.filter(x=>x.status==="won").length} won · ${q.filter(x=>x.status==="permanent").length} made permanent` : "Approved bets land here. Kept in this browser only.";
+}
+
+$("intake").onsubmit = async (e) => {
+  e.preventDefault(); $("err").textContent = "";
+  const f = e.target; state.intake = Object.fromEntries(new FormData(f).entries()); if (!state.intake.example_id) delete state.intake.example_id;
+  $("briefCard").hidden = false; $("betsCard").hidden = true; $("briefDoc").innerHTML = ""; $("runBets").disabled = true; $("runBrief").disabled = true;
+  $("briefStatus").textContent = "Writing…"; setStep(2);
+  try {
+    await stream("/api/brief", state.intake, $("briefRaw"), (b) => { state.brief = b; renderBrief(b); $("briefStatus").textContent = "Click any line to edit it. The edited brief is what the bets step reads."; $("runBets").disabled = false; });
+  } catch (err) { $("err").textContent = err.message; $("briefStatus").textContent = ""; }
+  $("runBrief").disabled = false; loadUsage();
+};
+$("runBets").onclick = async () => {
+  $("betsCard").hidden = false; $("betsList").innerHTML = ""; $("betsStatus").textContent = "Scoring…"; $("runBets").disabled = true; setStep(3);
+  try {
+    await stream("/api/bets", { intake: state.intake, brief: state.brief }, $("betsRaw"), (b) => { renderBets(b); $("betsStatus").textContent = "Sorted by impact, then effort. Approve the ones worth running."; });
+  } catch (err) { $("err").textContent = err.message; $("betsStatus").textContent = ""; }
+  $("runBets").disabled = false; loadUsage();
+};
+$("reset").onclick = () => { $("intake").reset(); $("briefCard").hidden = true; $("betsCard").hidden = true; $("err").textContent = ""; setStep(1); };
+
+loadExamples(); loadUsage(); loadHood(); renderQueue();
+</script>
+</body>
+</html>

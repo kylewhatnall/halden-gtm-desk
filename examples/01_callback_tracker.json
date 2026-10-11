@@ -1,0 +1,109 @@
+{
+  "id": "callback-tracker",
+  "intake": {
+    "feature": "Callback Tracker",
+    "what": "Flags any job where a technician returns to the same site within 14 days for the same system, ties it to the original work order and technician, and shows a callback rate per tech and per customer on the dispatch board.",
+    "asked_by": "Ops managers at four of our largest accounts, plus the CSM team who hears about callbacks on every QBR",
+    "launch_window": "Early November",
+    "pricing_impact": "none"
+  },
+  "brief": {
+    "launch_tier": "standard",
+    "tier_reason": "It improves a workflow customers already run every day and doesn't touch pricing, so it earns release notes, one email and CSM enablement rather than a release moment.",
+    "positioning": "Callback Tracker shows a shop owner which jobs came back, which technician did the first visit, and what the repeat trip cost, without anyone keeping a spreadsheet.",
+    "segments": [
+      {
+        "name": "Owner-operators",
+        "who": "Owners of 10 to 40 technician shops who sign off on every invoice and know callbacks eat margin but can't see them until month end.",
+        "message": "You'll know by Friday which jobs from this week are likely to come back, and what they cost you last quarter.",
+        "proof_needed": "A worked example on invented Halden data: a 40-tech shop, 6% callback rate, the dollar figure for the quarter."
+      },
+      {
+        "name": "Dispatchers",
+        "who": "The person on the board all day who decides which tech goes where and gets blamed when the same site calls twice.",
+        "message": "A callback shows up on the board next to the original ticket, so you can send the right tech the second time.",
+        "proof_needed": "A 30 second screen recording of the flag appearing on the board and the original work order opening from it."
+      },
+      {
+        "name": "Service managers at larger accounts",
+        "who": "Managers at 100 to 200 technician shops who run weekly tech reviews and currently build callback numbers by hand.",
+        "message": "Callback rate per technician is a column, not a project.",
+        "proof_needed": "One customer willing to say on a call that they stopped building the spreadsheet. Go ask the four accounts who requested it."
+      }
+    ],
+    "channels": [
+      {"channel": "CSM talk track", "play": "Two slides and a demo path for the next QBR with every account that raised callbacks.", "timing": "Two weeks before"},
+      {"channel": "In-app announcement", "play": "One card on the dispatch board for ops roles only, pointing at the new column.", "timing": "Launch day"},
+      {"channel": "Customer email", "play": "Plain text note from the product lead to ops managers and owners, with the worked example.", "timing": "Launch day"},
+      {"channel": "Help center", "play": "How the 14 day window works and how to change it.", "timing": "Launch day"},
+      {"channel": "Sales battlecard", "play": "One row: how we show callbacks versus the two competitors who report them only in monthly PDFs.", "timing": "One week after"},
+      {"channel": "Trade association", "play": "Short piece on measuring callbacks for the contractor association newsletter, no product pitch.", "timing": "30 days after"}
+    ],
+    "risks": [
+      {"risk": "Technicians read the per-tech rate as a scoreboard and push back on managers.", "signal": "Support tickets or CSM notes asking to hide the column within the first two weeks."},
+      {"risk": "The 14 day rule flags planned follow-ups as callbacks and the number looks wrong.", "signal": "Owners emailing to dispute the rate on specific jobs."},
+      {"risk": "Nobody changes the default window and the feature looks dumb for shops that do 30 day warranties.", "signal": "Window setting unchanged on more than 90% of accounts after 30 days."}
+    ],
+    "sales_proof": [
+      "The worked example with a dollar figure for a 40 technician shop",
+      "A named customer quote from one of the four requesting accounts",
+      "The screen recording of the flag on the board",
+      "A one line answer on how it handles planned follow-up visits",
+      "Which competitors show callbacks at all, and how late"
+    ]
+  },
+  "bets": {
+    "bets": [
+      {
+        "title": "Lead the launch email with the quarter's callback cost, not the feature",
+        "hypothesis": "If we open the customer email with the invented dollar figure for a 40 tech shop instead of the feature name, then owners will click through at a higher rate, because cost is the thing they already argue about at month end.",
+        "change": "The first line of the launch email.",
+        "win_target": "18% click rate on the owner segment, against an assumed 11% on the last three feature emails.",
+        "window_weeks": 2,
+        "impact": 3,
+        "effort": 1,
+        "owner_role": "Lifecycle marketer"
+      },
+      {
+        "title": "Put the callback column into the next ten QBRs before the email goes out",
+        "hypothesis": "If CSMs show the column live in QBRs two weeks early, then those accounts will turn it on themselves on launch day, because they'll have already argued about the number in the room.",
+        "change": "QBR agenda for the ten largest accounts in the window.",
+        "win_target": "8 of 10 accounts have the window setting changed or the column pinned within 7 days of launch.",
+        "window_weeks": 4,
+        "impact": 4,
+        "effort": 2,
+        "owner_role": "CSM lead"
+      },
+      {
+        "title": "Test a tech-facing framing in the in-app card",
+        "hypothesis": "If the in-app card says 'see which jobs need a different tech' instead of 'see callback rate per tech', then dispatchers will open the original work order from the flag more often, because the first framing is about routing and the second reads as blame.",
+        "change": "Card copy, split by account.",
+        "win_target": "Flag-to-work-order open rate 25% higher on the routing copy.",
+        "window_weeks": 3,
+        "impact": 3,
+        "effort": 2,
+        "owner_role": "PMM"
+      },
+      {
+        "title": "Ask for the customer quote with a draft in hand",
+        "hypothesis": "If we send the four requesting accounts a drafted quote they can edit rather than an open ask, then at least two will approve one within a week, because the work is already done.",
+        "change": "The ask includes a draft.",
+        "win_target": "2 approved quotes in 7 days.",
+        "window_weeks": 2,
+        "impact": 2,
+        "effort": 1,
+        "owner_role": "PMM"
+      },
+      {
+        "title": "Run the association piece as a measurement guide with no product mention",
+        "hypothesis": "If the newsletter piece teaches contractors how to measure callbacks and never names Halden, then more non-customers will land on the help article than from a product pitch, because the association won't run a pitch and readers forward how-to pieces.",
+        "change": "Whether the piece names the product.",
+        "win_target": "150 visits to the help article from the association domain in 30 days, assumption of 40 for a pitch piece.",
+        "window_weeks": 6,
+        "impact": 2,
+        "effort": 2,
+        "owner_role": "Content"
+      }
+    ]
+  }
+}
