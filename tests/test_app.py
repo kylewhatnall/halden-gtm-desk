@@ -154,3 +154,15 @@ def test_live_round_trip(live):
     check_brief(brief)
     text = asyncio.run(run(halden.system_prompt("bets"), halden.bets_user_message(intake, brief), 2500))
     check_bets(json.loads(text[text.index("{") : text.rindex("}") + 1]))
+
+
+def test_rubric_passes_recorded_examples():
+    import sys
+
+    sys.path.insert(0, str(ROOT / "evals"))
+    from rubric import score_bets, score_brief
+
+    for e in examples():
+        bp, bm, _ = score_brief(e["brief"], {"tier": [e["brief"]["launch_tier"]]})
+        pp, pm, _ = score_bets(e["bets"], e["brief"])
+        assert (bp + pp) / (bm + pm) >= 0.85

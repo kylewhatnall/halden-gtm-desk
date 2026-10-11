@@ -74,6 +74,17 @@ I built the production pattern for a software company, and this repo is its shap
 
 **What to measure in production.** Time from intake to an approved brief. Share of bets that hit their target. Share of winning bets that become the permanent play. Those three tell you whether the loop is working better than the meetings it replaced.
 
+## Checking a prompt change before it ships
+
+The skill files are the product, so a change to one gets graded before it merges. `evals/rubric.py` encodes the house rules as deterministic checks (tier chosen and defended, three segments, a channel count that fits the tier, a pricing risk when pricing is touched, every bet with a hypothesis in the right form and a numeric target with a baseline, no hype words). `evals/cases.json` holds the three recorded intakes plus three harder ones: a bug fix that should land quiet, a revenue-share feature that must be major and name the pricing risk, and a tier-gated convenience feature.
+
+```bash
+python3 evals/run.py            # grades the recorded examples, no key needed
+python3 evals/run.py --live -n 2   # calls the model twice per case, then grades
+```
+
+Each run writes a scorecard to `evals/results/` and fails under 85/100. The `evals` workflow in Actions runs the live version on demand with the repository's `ANTHROPIC_API_KEY` secret and posts the scorecard to the job summary. The offline rubric runs in CI on every push, so the examples can't drift from the rules either.
+
 Design notes and the choices I'd still make differently are in [docs/pattern.md](docs/pattern.md).
 
 ## License

@@ -11,3 +11,4 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - run: ruff check .
       - run: HALDEN_OFFLINE=1 pytest -q
+      - run: python3 evals/run.py

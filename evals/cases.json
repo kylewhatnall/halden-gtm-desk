@@ -1,0 +1,53 @@
+[
+  {
+    "id": "callback-tracker",
+    "from_example": true,
+    "expect": {"tier": ["standard"], "mentions": ["callback"], "pricing_risk": false}
+  },
+  {
+    "id": "parts-on-truck",
+    "from_example": true,
+    "expect": {"tier": ["major"], "mentions": ["truck"], "pricing_risk": true}
+  },
+  {
+    "id": "after-hours-routing",
+    "from_example": true,
+    "expect": {"tier": ["standard", "major"], "mentions": ["after"], "pricing_risk": true}
+  },
+  {
+    "id": "invoice-pdf-fix",
+    "intake": {
+      "feature": "Invoice PDF line wrapping",
+      "what": "Fixes long part descriptions overflowing the line on the printed invoice PDF. No new settings, no new screens. Customers noticed it on invoices with more than 12 line items.",
+      "asked_by": "Support, 31 tickets since June",
+      "launch_window": "Next release",
+      "pricing_impact": "none"
+    },
+    "expect": {"tier": ["quiet"], "mentions": ["invoice"], "pricing_risk": false,
+               "max_channels": 4, "note": "A bug fix should land as a quiet release with release notes and a help article, not a launch."}
+  },
+  {
+    "id": "maintenance-agreements",
+    "intake": {
+      "feature": "Maintenance Agreements",
+      "what": "Lets a shop sell and bill recurring maintenance plans: a customer picks a plan, visits get scheduled automatically each season, invoices go out on the plan's cycle, and the dispatcher sees which customers are on a plan when a call comes in. Billed as a percentage of plan revenue collected through Halden.",
+      "asked_by": "Our CEO after the board meeting, plus 40% of accounts in the last NPS survey",
+      "launch_window": "Spring, before cooling season",
+      "pricing_impact": "add-on"
+    },
+    "expect": {"tier": ["major"], "mentions": ["plan"], "pricing_risk": true,
+               "note": "Recurring revenue for the customer and a take rate for Halden is a major launch; the brief must name the pricing risk."}
+  },
+  {
+    "id": "technician-photo-notes",
+    "intake": {
+      "feature": "Photo notes on work orders",
+      "what": "Technicians attach photos to a work order from the mobile app and tag them before, during or after. Office staff see them on the invoice preview. Available on Pro and above.",
+      "asked_by": "Six customers in the forum thread about disputes over completed work",
+      "launch_window": "December",
+      "pricing_impact": "tier gate"
+    },
+    "expect": {"tier": ["standard"], "mentions": ["photo"], "pricing_risk": true,
+               "note": "A tier gated convenience feature is standard, and the Starter segment must be addressed."}
+  }
+]
