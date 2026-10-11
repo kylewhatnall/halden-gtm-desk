@@ -2,6 +2,8 @@
 
 A small, hosted demo of the loop I run as a product marketer. A feature comes in. A structured GTM brief comes out. The brief becomes scored marketing bets, and the approved bets land in a campaign queue. It runs in a browser on invented data for a fictional company called Halden, which sells field service software to commercial HVAC contractors. The point is that you can watch the whole workflow run in about three minutes without installing anything.
 
+**Live demo: [halden-gtm-desk.onrender.com](https://halden-gtm-desk.onrender.com)** (free tier, so the first load after a quiet spell takes about a minute while it wakes; it runs in offline mode on the three recorded examples).
+
 ![Halden GTM Desk after a brief and two approved bets](docs/screenshot.png)
 
 Everything on the page is made up. No employer's code, customers, numbers or briefs are in here. I rebuilt the pattern from scratch so a reader can watch it run.
